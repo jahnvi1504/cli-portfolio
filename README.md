@@ -2,6 +2,11 @@
 
 A terminal-style portfolio that feels like a real Linux shell, built with Next.js, TypeScript, Tailwind, and a lightweight interactive terminal interface.
 
+## Live Demo
+
+- Production: https://cliportfolio-m7602yu3r-jahnvis-projects-723b55c7.vercel.app
+- Alias: https://cliportfolio-gules.vercel.app
+
 ## Hero
 
 ![CLI Portfolio Preview](https://via.placeholder.com/1280x720?text=CLI+Portfolio+Terminal)
