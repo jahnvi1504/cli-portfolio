@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CLI Portfolio
 
-## Getting Started
+A terminal-style portfolio that feels like a real Linux shell, built with Next.js, TypeScript, Tailwind, and a lightweight interactive terminal interface.
 
-First, run the development server:
+## Hero
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![CLI Portfolio Preview](https://via.placeholder.com/1280x720?text=CLI+Portfolio+Terminal)
+
+## Overview
+
+This project simulates a personal portfolio environment where visitors can type commands like `help`, `about`, `projects`, `skills`, `experience`, `neofetch`, and `tree` to explore work and experience in a realistic terminal layout.
+
+## Features
+
+- Authentic terminal shell UI
+- Boot sequence with reduced-motion fallback
+- Virtual filesystem with browsing commands
+- Portfolio command outputs for experience, projects, leadership, and contact
+- Shell-like history, tab completion, and clear command handling
+- Mobile-friendly responsive design
+- Vercel-ready Next.js deployment
+
+## Architecture
+
+```text
+app/
+  page.tsx
+  layout.tsx
+  globals.css
+
+components/
+  TerminalWindow.tsx
+  BootSequence.tsx
+  CommandInput.tsx
+  Prompt.tsx
+
+lib/
+  portfolio-data.ts
+  filesystem.ts
+  github.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Commands
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | Description |
+| --- | --- |
+| `help` | Lists available commands |
+| `about` | Personal introduction |
+| `skills` | Skill groups and categories |
+| `experience` | Career and internship history |
+| `leadership` | Leadership roles |
+| `projects` | Project overview |
+| `project <name>` | Deep-dive project page |
+| `neofetch` | Developer profile banner |
+| `ls`, `cd`, `pwd`, `tree` | Virtual filesystem navigation |
+| `cat <file>` | Read file contents |
+| `clear` | Clear terminal output |
+| `github` | GitHub summary |
+| `coffee`, `fortune`, `hack`, `matrix` | Easter eggs |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local Setup
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Then open http://localhost:3000.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Production Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is ready to deploy to Vercel:
 
-## Deploy on Vercel
+1. Push to GitHub.
+2. Import the repository into Vercel.
+3. Use the default Next.js settings.
+4. Deploy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Roadmap
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [x] Project setup
+- [x] Terminal shell window
+- [x] Boot sequence
+- [x] Command parser and shell behavior
+- [x] Portfolio command content
+- [x] Virtual filesystem
+- [x] Neofetch output
+- [x] GitHub integration layer
+- [x] Easter eggs
+- [ ] README polishing and screenshots
+- [ ] Accessibility refinement
+- [ ] Performance tuning
+
+## Contributing
+
+Contributions are welcome. Please open an issue or PR with a clear description and keep changes focused.
+
+## License
+
+MIT
