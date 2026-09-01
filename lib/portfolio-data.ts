@@ -166,6 +166,13 @@ export const projectList = ["BuildingDNA", "AtlasKV", "SkillSwap", "Competitive 
 export const helpText = [
   "Available commands:",
   ...commandSuggestions,
+  "",
+  "Hidden commands:",
+  "sudo hire jahnvi",
+  "coffee",
+  "fortune",
+  "matrix",
+  "hack",
 ];
 
 export const neofetchText = [

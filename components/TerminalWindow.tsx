@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { BootSequence } from "@/components/BootSequence";
 import { CommandInput } from "@/components/CommandInput";
-import { aboutText, commandSuggestions, helpText, neofetchText, projectCatalog, skillGroups, experienceItems, leadershipItems } from "@/lib/portfolio-data";
+import { aboutText, commandSuggestions, helpText, neofetchText, projectCatalog, projectList, skillGroups, experienceItems, leadershipItems } from "@/lib/portfolio-data";
 import { getCurrentTree, listDirectory, normalizePath, readFileContent, resolvePath } from "@/lib/filesystem";
 
 const historyLimit = 50;
+const resumeUrl = "https://raw.githubusercontent.com/jahnvi1504/cli-portfolio/main/Jahnvi_R.pdf";
 
 function escapeForDisplay(value: string) {
   return value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -93,6 +94,8 @@ export function TerminalWindow() {
       });
     } else if (normalized === "leadership") {
       result = leadershipItems;
+    } else if (normalized === "projects") {
+      result = projectList;
     } else if (normalized === "github") {
       result = [
         "GitHub: github.com/jahnvi1504",
@@ -108,9 +111,12 @@ export function TerminalWindow() {
     } else if (normalized === "linkedin") {
       result = ["LinkedIn: linkedin.com/in/jahnvi-r"];
     } else if (normalized === "contact") {
-      result = ["Email: hello@jahnvi.dev", "GitHub: github.com/jahnvi1504", "LinkedIn: linkedin.com/in/jahnvi-r"];
+      result = ["Email: jahnvir04@gmail.com", "GitHub: github.com/jahnvi1504", "LinkedIn: linkedin.com/in/jahnvi-r"];
     } else if (normalized === "resume") {
-      result = ["resume.pdf", "Available on request."];
+      result = [
+        "resume.pdf",
+        `::HTML::<a href="${resumeUrl}" target="_blank" rel="noreferrer" download class="text-[#86efac] underline">Download resume</a>`,
+      ];
     } else if (normalized === "neofetch") {
       result = neofetchText;
     } else if (normalized === "pwd") {
@@ -145,8 +151,17 @@ export function TerminalWindow() {
         }
       }
     } else if (normalized === "project") {
-      const lookup = args.join(" ");
-      const match = Object.values(projectCatalog).find((project) => project.title.toLowerCase() === lookup.toLowerCase());
+      const lookup = args.join(" ") || "";
+      const aliases: Record<string, string> = {
+        intelligence: "Competitive Intelligence Agents",
+        "competitive intelligence": "Competitive Intelligence Agents",
+        "competitive intelligence agents": "Competitive Intelligence Agents",
+      };
+      const normalizedLookup = aliases[lookup.toLowerCase()] ?? lookup;
+      const match = Object.values(projectCatalog).find((project) =>
+        project.title.toLowerCase() === normalizedLookup.toLowerCase() ||
+        project.title.toLowerCase().includes(normalizedLookup.toLowerCase())
+      );
       if (!match) {
         result = [
           `Unknown project: ${lookup || ""}`.trim(),
@@ -207,9 +222,13 @@ export function TerminalWindow() {
 
       <div className="h-[calc(100%-48px)] overflow-y-auto px-4 pb-4 pt-3 font-mono text-sm text-[#d6f6d8]" ref={scrollRef}>
         <div className="space-y-1 whitespace-pre-wrap break-words">
-          {entries.map((line, index) => (
-            <div key={`${line}-${index}`} dangerouslySetInnerHTML={{ __html: escapeForDisplay(line) }} />
-          ))}
+          {entries.map((line, index) => {
+            if (line.startsWith("::HTML::")) {
+              return <div key={`${line}-${index}`} dangerouslySetInnerHTML={{ __html: line.replace("::HTML::", "") }} />;
+            }
+
+            return <div key={`${line}-${index}`} dangerouslySetInnerHTML={{ __html: escapeForDisplay(line) }} />;
+          })}
         </div>
 
         <div className="mt-2 flex items-start gap-2">
