@@ -34,7 +34,7 @@ export const fileContents: Record<string, string> = {
 };
 
 export function normalizePath(path: string) {
-  const normalized = path.replace(/\\/g, "/").replace(/\/+/g, "/");
+  const normalized = path.replace(/\\/g, "/").replace(/\/+/g, "/").replace(/\/$/, "");
   if (!normalized || normalized === ".") {
     return "/";
   }

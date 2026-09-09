@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { BootSequence } from "@/components/BootSequence";
 import { CommandInput } from "@/components/CommandInput";
 import { aboutText, commandSuggestions, helpText, neofetchText, projectCatalog, projectList, skillGroups, experienceItems, leadershipItems } from "@/lib/portfolio-data";
-import { getCurrentTree, listDirectory, normalizePath, readFileContent, resolvePath } from "@/lib/filesystem";
+import { filesystem, getCurrentTree, listDirectory, normalizePath, readFileContent, resolvePath } from "@/lib/filesystem";
 
 const historyLimit = 50;
 const resumeUrl = "https://raw.githubusercontent.com/jahnvi1504/cli-portfolio/main/Jahnvi_R.pdf";
@@ -130,8 +130,8 @@ export function TerminalWindow() {
         setCwd("/");
       } else {
         const next = resolvePath(cwd, args[0]);
-        const allowed = listDirectory(cwd).some((item) => item === `${args[0]}/` || item === args[0]);
-        if (allowed || args[0] === "/" || args[0] === "..") {
+        const allowed = filesystem[next]?.type === "directory";
+        if (allowed) {
           setCwd(next);
         } else {
           result = [`cd: ${args[0]}: No such file or directory`];
@@ -253,7 +253,6 @@ export function TerminalWindow() {
                 setInput(next);
               }
             }}
-            cwd={cwd}
           />
         </div>
       </div>
